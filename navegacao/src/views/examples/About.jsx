@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
-const About = props => {
+const About = props => (
     <div className="About">
-        Componente About
-        <h1>SObre</h1>
+        <h1>Sobre</h1>
+        <h2>O nosso sistema foi criado...</h2>
     </div>
-}
+)
 
 export default About
