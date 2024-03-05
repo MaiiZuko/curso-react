@@ -1,43 +1,63 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
-const UseRef = (props) => {
-    const [value1, setValue1] = useState("")
-    const [value2, setValue2] = useState("")
-    const count = useRef(0)
+function calcFatorial(num) {
+    const n = parseInt(num)
+    if(n < 0) return -1
+    if(n === 0) return 1
+    return calcFatorial(n - 1) * n
+}
 
-    const myInput1 = useRef(null)
-    const myInput2 = useRef(null)
+const UseEffect = (props) => {
 
-    count.current++
+    // Ex #01
+    const [number, setNumber] = useState(1)
+    const [fatorial, setFatorial] = useState(1)
+
+    useEffect(function() {
+        setFatorial(calcFatorial(number))
+    }, [number])
+
+    useEffect(function() {
+        if(fatorial > 1000000) {
+            document.title = "Eita!!!"
+        }
+    }, [fatorial])
+
+    // Ex #02
+    const [status, setStatus] = useState("Ímpar")
+
+    useEffect(function() {
+        setStatus(number % 2 === 0 ? "Par" : "Ímpar")
+    }, [number])
 
     return (
-        <div className="UseRef">
+        <div className="UseEffect">
             <PageTitle
-                title="Hook UseRef"
-                subtitle="Retorna um objeto mutável com a propriedade .current!"
-            />
-            <SectionTitle title="Exercicio 1" />
+                title="Hook UseEffect"
+                subtitle="Permite executar efeitos colaterais em componentes funcionais!" />
+
+            <SectionTitle title="Exercício #01"/>
             <div className="center">
                 <div>
-                    <span className="text">Valor: </span>
-                    <span className="text">{value1} [</span>
-                    <span className="text red">{count.current}</span>
-                    <span className="text">]</span>
+                    <span className="text">Fatorial: </span>
+                    <span className="text red">{fatorial === -1 ? 'Não existe' :  fatorial}</span>
                 </div>
-                <input type="text" className="input"
-                    ref={myInput1}
-                    value={value1} onChange={e => setValue1(e.target.value)} />
+                <input type="number" className="input"
+                    value={number}
+                    onChange={e => setNumber(e.target.value)} />
             </div>
-            <SectionTitle title="Exercicio 1" />
-            <div className="center"></div>
-            <span className="text">Valor: </span>
-            <span className="text">{value2} </span>
-            <input type="text" className="input"
-                value={value2} onChange={e => setValue2(e.target.value)} />
+
+            <SectionTitle title="Exercício #02"/>
+            <div className="center">
+                <div>
+                    <span className="text">Status: </span>
+                    <span className="text red">{status}</span>
+                </div>
+            </div>
         </div>
     )
 }
 
-export default UseRef
+export default UseEffect
