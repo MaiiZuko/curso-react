@@ -1,3 +1,7 @@
 export default function Inicio() {
-  return <h1>Título</h1>
+  return (
+    <div>
+      <h1> Teste</h1>
+    </div>
+  )
 }
